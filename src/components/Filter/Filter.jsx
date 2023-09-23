@@ -1,8 +1,13 @@
-import React from 'react';
-import { CiSearch } from 'react-icons/ci';
-import styles from './Filter.module.css';
+import React from "react";
+import { CiSearch } from "react-icons/ci";
+import styles from "./Filter.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getFilter, setFilter } from "../../redux/filterSlice";
 
 export const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
+
   return (
     <div className={styles.search}>
       <div className={styles.searchWrapper}>
@@ -10,9 +15,13 @@ export const Filter = () => {
 
         <input
           className={styles.searchInput}
-          type='text'
-          id='search'
-          placeholder='Search something..'
+          onChange={(e) => {
+            dispatch(setFilter(e.target.value));
+          }}
+          type="text"
+          id="search"
+          placeholder="Search something.."
+          value={filter}
         />
       </div>
     </div>
